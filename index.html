@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>8x8 Dot Picture Generator</h2>
+
+<label for="hexInput">Enter 16 hexadecimal characters:</label><br>
+<input type="text" id="hexInput" name="hexInput" maxlength="16"><br><br>
+<button onclick="generatePicture()">Generate</button>
+
+<br><br>
+<table id="pictureTable"></table>
+
+<script>
+function generatePicture() {
+    // Clear existing picture
+    document.getElementById("pictureTable").innerHTML = "";
+    
+    // Get input value
+    let hexInput = document.getElementById("hexInput").value;
+    
+    // Convert input to binary
+    let binaryInput = "";
+    for (let i = 0; i < hexInput.length; i++) {
+        binaryInput += parseInt(hexInput[i], 16).toString(2).padStart(4, '0');
+    }
+    
+    // Create picture
+    let pictureTable = document.getElementById("pictureTable");
+    for (let i = 0; i < 8; i++) {
+        let row = pictureTable.insertRow(i);
+        for (let j = 0; j < 8; j++) {
+            let cell = row.insertCell(j);
+            if (binaryInput[i*8 + j] == "1") {
+                cell.style.backgroundColor = "black";
+            }
+        }
+    }
+}
+</script>
+
+</body>
+</html>
